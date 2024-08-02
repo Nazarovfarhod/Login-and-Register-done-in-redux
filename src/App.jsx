@@ -15,13 +15,13 @@ import Register from "./pages/Register";
 import { useSelector } from "react-redux";
 //import
 import { useDispatch } from "react-redux";
-import { login } from "./features/userSlice";
+import { login, isAuthReadyChange } from "./features/userSlice";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfige";
 
 function App() {
-  const { user, isAuthReadyChange } = useSelector((state) => state.user);
+  const { user, isAuthReady } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const routes = createBrowserRouter([
@@ -60,11 +60,11 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       dispatch(login(user));
-      dispatch(isAuthReadyChange);
+      dispatch(isAuthReadyChange());
     });
   }, []);
 
-  return <>{<RouterProvider router={routes} />}</>;
+  return <>{isAuthReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App;
