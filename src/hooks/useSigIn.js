@@ -7,11 +7,13 @@ import { useDispatch } from "react-redux";
 import { login } from "../features/userSlice";
 import toast from "react-hot-toast";
 
-export const useSigIn = (email, password) => {
+export const useSigIn = () => {
+
   const dispatch = useDispatch();
-  const signIn = async () => {
+  const signIn = async (email, password) => {
     const result = await signInWithEmailAndPassword(auth, email, password);
     const user = result.user;
+    console.log(user);
     dispatch(login(user));
     toast.success("Welcome," + user.displayName);
     try {
