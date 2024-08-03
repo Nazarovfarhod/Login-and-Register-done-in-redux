@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { Flex, Menu, Typography } from "antd";
 import { Link } from "react-router-dom";
 const { Title } = Typography;
-
-
-
+import { FaRegUserCircle } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
+import { BiLogOutCircle } from "react-icons/bi";
+import { IoHome } from "react-icons/io5";
+import { FaCartArrowDown } from "react-icons/fa";
+import { FcAbout } from "react-icons/fc";
 
 const items = [
   {
@@ -13,17 +16,52 @@ const items = [
     children: [
       {
         key: "1",
-        label: <Link to="/">Home</Link>,
+        label: (
+          <Link
+            to="/"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              justifyContent: "center",
+            }}
+          >
+            <IoHome />
+            Home
+          </Link>
+        ),
       },
       {
         key: "2",
-        label: <Link to="/about">About</Link>,
+        label: (
+          <Link
+            to="/about"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              justifyContent: "center",
+            }}
+          >
+            <FcAbout />
+            About
+          </Link>
+        ),
       },
       {
         key: "3",
         label: (
-          <Link to="/contact">
-            Orders 
+          <Link
+            to="/contact"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              justifyContent: "center",
+            }}
+          >
+            <FaCartArrowDown />
+            Orders
           </Link>
         ),
       },
@@ -43,7 +81,6 @@ const style = {
   },
   btn: {
     backgroundColor: "#e0a69d",
-    color: "#fff",
     border: "none",
     borderRadius: "20px",
     padding: "10px 20px",
@@ -52,6 +89,10 @@ const style = {
     transition: "background-color 0.3s ease",
     color: "black",
     fontWeight: "bold",
+    display: "flex",
+    alignItems: "center",
+    gap: "4px",
+    justifyContent: "center",
   },
 };
 
@@ -90,6 +131,7 @@ const Navbar = () => {
           </span>
           <span>
             <button onClick={signOutProfile} style={style.btn} type="button">
+              <BiLogOutCircle />
               Log Out
             </button>
           </span>
@@ -98,15 +140,28 @@ const Navbar = () => {
         <p
           style={{
             width: "100%",
-            textAlign: "center",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+            justifyContent: "center",
             textTransform: "capitalize",
             fontWeight: "bold",
             letterSpacing: "1px",
           }}
         >
-          {user.displayName}
+          <FaRegUserCircle /> {user.displayName}
         </p>
-        <p style={{ width: "100%", textAlign: "center", fontSize: "10px" }}>
+        <p
+          style={{
+            width: "100%",
+            fontSize: "10px",
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+            justifyContent: "center",
+          }}
+        >
+          <HiOutlineMail style={{ width: "10px" }} />
           {user.email}
         </p>
         <br />

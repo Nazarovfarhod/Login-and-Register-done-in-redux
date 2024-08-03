@@ -132,7 +132,7 @@ function SingleProduct() {
                         +
                       </button>
                     </div>
-                    <button>Add to Cart</button>
+                  
                   </div>
                 </div>
               </div>
