@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { incrementProduct, decrimentProduct } from "../features/productSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { TiPlusOutline } from "react-icons/ti";
+import { TiMinusOutline } from "react-icons/ti";
 
 function SingleProduct() {
   const { products } = useSelector((state) => state.products);
@@ -57,15 +59,16 @@ function SingleProduct() {
                   style={{
                     fontWeight: "bold",
                     fontSize: "1.5rem",
-                    margin: "10px 0",
                   }}
                 >
                   {product.title}
                 </h1>
+                <p style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+                  Category: {product.category}
+                </p>
                 <p
                   style={{
                     maxWidth: "100%",
-                    margin: "0 auto",
                     fontSize: "1rem",
                   }}
                 >
@@ -115,12 +118,16 @@ function SingleProduct() {
                     }}
                   >
                     <div style={{ display: "flex", gap: "20px" }}>
-                      {!disable && <button disabled={true}>-</button>}
+                      {!disable && (
+                        <button disabled={true}>
+                          <TiMinusOutline />
+                        </button>
+                      )}
                       {disable && (
                         <button
                           onClick={() => dispatch(decrimentProduct(product.id))}
                         >
-                          -
+                          <TiMinusOutline />
                         </button>
                       )}
                       <span>{product.amount ? product.amount : 0}</span>
@@ -129,7 +136,7 @@ function SingleProduct() {
                           dispatch(incrementProduct(product.id));
                         }}
                       >
-                        +
+                        <TiPlusOutline />
                       </button>
                     </div>
                     <Link to="/">Back</Link>
