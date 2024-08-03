@@ -1,51 +1,42 @@
-import { useSelector } from "react-redux";
-
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfige";
-import toast from "react-hot-toast";
-
-const style = {
-  img: {
-    width: "100px",
-    height: "100px",
-    borderRadius: "50%",
-  },
-  container: {
-    width: "100%",
-    maxWidth: "400px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: "0",
-  },
-  btn: {
-    backgroundColor: "red",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    padding: "10px 20px",
-    fontSize: "16px",
-    cursor: "pointer",
-    transition: "background-color 0.3s ease",
-  },
-};
+import App from "../components/Card";
+// custom hooks
+import { useFetch } from "../hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { AddProduct } from "../features/productSlice";
 
 function Home() {
-  const { user } = useSelector((state) => state.user);
+  const url =
+    "https://online-json-server-api.up.railway.app/project/66adfd4d340dd55056fb30aa/products";
+  const { data, isPending, error } = useFetch(url);
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.products);
 
-  const signOutProfile = async () => {
-    await signOut(auth);
-    toast.success("See you soon!");
-  };
+  useEffect(() => {
+    if (data) {
+      dispatch(AddProduct(data));
+    }
+  }, [data, dispatch]);
 
   return (
-    <div style={style.container}>
-      <img style={style.img} src={user.photoURL} alt="" />
-      <h1>Name: {user.displayName}</h1>
-      <p>Email: {user.email}</p>
-      <button onClick={signOutProfile} style={style.btn} type="button">
-        Log Out
-      </button>
+    <div className="grid-container">
+      {isPending && (
+        <h2
+          style={{
+            fontSize: "50px",
+            letterSpacing: "4px",
+          }}
+        >
+          Loading...
+        </h2>
+      )}
+      {products?.map((product) => {
+        return (
+          <div key={product.id}>
+            <App product={product} />
+          </div>
+        );
+      })}
     </div>
   );
 }

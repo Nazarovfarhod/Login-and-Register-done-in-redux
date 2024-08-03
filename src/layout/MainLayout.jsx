@@ -7,17 +7,19 @@ import { Flex } from "antd";
 const style = {
   container: {
     width: "100%",
-    height: "100vh",
+    minHeight: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#eef6fb",
+    padding: "25px",
   },
 };
 
 function MainLayout() {
   return (
-    <Flex gap={30}>
-      <header>
+    <Flex style={{ userSelect: "none", width: "100%" }}>
+      <header style={{ width: "300px " }}>
         <Navbar />
       </header>
       <main style={style.container}>

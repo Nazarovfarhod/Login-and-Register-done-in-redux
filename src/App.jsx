@@ -19,6 +19,7 @@ import { login, isAuthReadyChange } from "./features/userSlice";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfige";
+import SingleProduct from "./pages/SingleProduct";
 
 function App() {
   const { user, isAuthReady } = useSelector((state) => state.user);
@@ -44,6 +45,10 @@ function App() {
         {
           path: "contact",
           element: <Contact />,
+        },
+        {
+          path: "singleProduct/:id",
+          element: <SingleProduct />,
         },
       ],
     },
