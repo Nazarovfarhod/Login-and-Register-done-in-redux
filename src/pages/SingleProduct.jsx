@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { incrementProduct, decrimentProduct } from "../features/productSlice";
 import { useDispatch } from "react-redux";
@@ -132,7 +132,7 @@ function SingleProduct() {
                         +
                       </button>
                     </div>
-                  
+                    <Link to="/">Back</Link>
                   </div>
                 </div>
               </div>
