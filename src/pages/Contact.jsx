@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { TiPlusOutline } from "react-icons/ti";
 import { TiMinusOutline } from "react-icons/ti";
 import { incrementProduct, decrimentProduct } from "../features/productSlice";
@@ -12,15 +12,6 @@ function Orders() {
     <div>
       {products?.map((prod) => {
         if (prod.amount) {
-          const [disable, setDisable] = useState(false);
-          useEffect(() => {
-            if (prod.amount) {
-              setDisable(true);
-            } else {
-              setDisable(false);
-            }
-          }, [prod.amount]);
-
           return (
             <div
               key={prod.id}
@@ -49,29 +40,11 @@ function Orders() {
                 </p>
                 <p>
                   Sale Price: $
-                  {prod.price -
-                    ((prod.price * prod.discountPercentage) / 100).toFixed(2)}
+                  {(
+                    prod.price -
+                    (prod.price * prod.discountPercentage) / 100
+                  ).toFixed(2)}
                 </p>
-              </div>
-              <div style={{ display: "flex", gap: "20px" }}>
-                {!disable && (
-                  <button disabled={true}>
-                    <TiMinusOutline />
-                  </button>
-                )}
-                {disable && (
-                  <button onClick={() => dispatch(decrimentProduct(prod.id))}>
-                    <TiMinusOutline />
-                  </button>
-                )}
-                <span>{prod.amount ? prod.amount : 0}</span>
-                <button
-                  onClick={() => {
-                    dispatch(incrementProduct(prod.id));
-                  }}
-                >
-                  <TiPlusOutline />
-                </button>
               </div>
             </div>
           );

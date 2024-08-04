@@ -117,27 +117,48 @@ function SingleProduct() {
                       alignItems: "center",
                     }}
                   >
-                    <div style={{ display: "flex", gap: "20px" }}>
-                      {!disable && (
-                        <button disabled={true}>
-                          <TiMinusOutline />
-                        </button>
-                      )}
-                      {disable && (
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "30px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ display: "flex", gap: "20px" }}>
+                        {!disable && (
+                          <button disabled={true}>
+                            <TiMinusOutline />
+                          </button>
+                        )}
+                        {disable && (
+                          <button
+                            onClick={() =>
+                              dispatch(decrimentProduct(product.id))
+                            }
+                          >
+                            <TiMinusOutline />
+                          </button>
+                        )}
+                        <span>{product.amount ? product.amount : 0}</span>
                         <button
-                          onClick={() => dispatch(decrimentProduct(product.id))}
+                          onClick={() => {
+                            dispatch(incrementProduct(product.id));
+                          }}
                         >
-                          <TiMinusOutline />
+                          <TiPlusOutline />
                         </button>
-                      )}
-                      <span>{product.amount ? product.amount : 0}</span>
-                      <button
-                        onClick={() => {
-                          dispatch(incrementProduct(product.id));
-                        }}
-                      >
-                        <TiPlusOutline />
-                      </button>
+                      </div>
+                      <p>
+                        Total Price: $
+                        <span style={{ fontWeight: "bold" }}>
+                          {(
+                            (product.price -
+                              (product.price * product.discountPercentage) /
+                                100) *
+                            product.amount
+                          ).toFixed(2)}
+                        </span>
+                      </p>
                     </div>
                     <Link to="/">Back</Link>
                   </div>
